@@ -11,6 +11,57 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --header-bg-color: red;
+  --header-font-color: black;
+  --header-font-size: 2rem;
+  --header-height: 4rem;
+
+  --nav-padding: 0rem 2rem;
+  --nav-link-gap: 2rem;
+}
+
+html,body{
+  height:100%;
+  width:100%;
+  margin:0
+}
+
+#root {
+  height:100%;
+  width:100%;
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navbar */
+header {
+  background-color: var(--header-bg-color);
+  color: var(--header-font-color);
+  font-size: var(--header-font-size);
+  height: var(--header-height);
+  align-content: center;
+}
+
+nav {
+  display: flex;
+  padding: var(--nav-padding);
+  justify-content: space-between;
+}
+
+.nav-links {
+  display: flex;
+  gap: var(--nav-padding);
+}
+
+/* Game */
+#portfolio_box{
+  width: 100px;
+  height: 100px;
+  background: white;
+
+  display: none;
 }
 
 a {

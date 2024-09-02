@@ -1,0 +1,5 @@
+.click-box {
+    position: absolute;
+    border-radius: 50%; 
+    transition: opacity 0.25s ease;
+}
