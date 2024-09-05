@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
-import ClickBox from './../components/ClickBox'
+import { useParams } from "react-router-dom";
+import GameImage from './../components/GameImage'
 import './Game.css'
 
 function Game() {
     
+    const { gameId } = useParams()
     const [clickBoxCoords, setClickBoxCoords] = useState([]);
 
     function handleClick(e) {
@@ -20,9 +22,10 @@ function Game() {
 
     
     return (
-        <main className='game-image' onClick={handleClick}>
-            <div>This is the game page</div>
-            <ClickBox 
+        <main>
+            <GameImage 
+                className='game-image' 
+                handleClick={handleClick}
                 xCoord={clickBoxCoords[0]}
                 yCoord={clickBoxCoords[1]}
                 active={clickBoxCoords.length > 1}

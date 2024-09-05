@@ -35,35 +35,6 @@ html,body{
   flex-direction: column;
 }
 
-/* Navbar */
-header {
-  background-color: var(--header-bg-color);
-  color: var(--header-font-color);
-  font-size: var(--header-font-size);
-  height: var(--header-height);
-  align-content: center;
-}
-
-nav {
-  display: flex;
-  padding: var(--nav-padding);
-  justify-content: space-between;
-}
-
-.nav-links {
-  display: flex;
-  gap: var(--nav-padding);
-}
-
-/* Game */
-#portfolio_box{
-  width: 100px;
-  height: 100px;
-  background: white;
-
-  display: none;
-}
-
 a {
   font-weight: 500;
   color: #646cff;

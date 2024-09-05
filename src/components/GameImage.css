@@ -1,0 +1,9 @@
+.game-image-container {
+    padding: 20px;
+}
+
+.game-image {
+	border: 2px solid black;
+    margin: auto;
+    display: block;
+}
