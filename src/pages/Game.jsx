@@ -19,17 +19,22 @@ function Game() {
             setGameImageDims({
                 left: imageRect.left,
                 top: imageRect.top,
+                width: imageRect.width,
+                height: imageRect.height,
             });
         }
     }
     
-    const handleScroll = () => {
+    const handleResize = () => {
       getGameImageDims();
     };
   
     useEffect(() => {
-      window.addEventListener('scroll', handleScroll);
-      return () => window.removeEventListener('scroll', handleScroll);
+      window.addEventListener('resize', handleResize);
+      return () => {
+        window.removeEventListener('resize', handleResize);
+        getGameImageDims();
+      }
     }, []);
 
     function handleClick(e) {
@@ -44,27 +49,63 @@ function Game() {
         }
     }, [clickBoxCoords])
 
+    if (clickBoxCoords.length > 1) {
+        return (
+            <main className='container'>
+                <div>ClickB Left: {clickBoxCoords[0]} ClickB Top: {clickBoxCoords[1]}</div>
+                <div>
+                    GameI Left: {gameImageDims.left}, 
+                    GameI Top: {gameImageDims.top}, 
+                    GameI Width: {gameImageDims.width}, 
+                    GameI Height: {gameImageDims.height} 
     
-    return (
-        <main className='container'>
-            <div>Left: {gameImageDims.left} Top: {gameImageDims.top}</div>
-            <CharacterBanner 
-                gameId={gameId}
-            />
-            <div className='game=image-container'>
-                <GameImage
-                    ref={gameImageRef}
-                    className='game-image' 
-                    handleClick={handleClick}
+                </div>
+                <CharacterBanner 
+                    gameId={gameId}
+                    xCoord={(clickBoxCoords[0] - gameImageDims.left) / gameImageDims.width}
+                    yCoord={(clickBoxCoords[1]  - gameImageDims.top) / gameImageDims.height}
                 />
-                <ClickBox 
-                    xCoord={clickBoxCoords[0]}
-                    yCoord={clickBoxCoords[1]}
-                    active={clickBoxCoords.length > 1}
+                <div className='game=image-container'>
+                    <GameImage
+                        ref={gameImageRef}
+                        className='game-image' 
+                        handleClick={handleClick}
+                    />
+                    <ClickBox 
+                        xCoord={clickBoxCoords[0]}
+                        yCoord={clickBoxCoords[1]}
+                        gameHeight={gameImageDims.height}
+                    />
+                </div>
+            </main>
+        )
+    } else { // no click box
+        return (
+            <main className='container'>
+                <div>ClickB Left: {clickBoxCoords[0]} ClickB Top: {clickBoxCoords[1]}</div>
+                <div>
+                    GameI Left: {gameImageDims.left}, 
+                    GameI Top: {gameImageDims.top}, 
+                    GameI Width: {gameImageDims.width}, 
+                    GameI Height: {gameImageDims.height} 
+    
+                </div>
+                <CharacterBanner 
+                    gameId={gameId}
+                    xCoord={(clickBoxCoords[0] - gameImageDims.left) / gameImageDims.width}
+                    yCoord={(clickBoxCoords[1]  - gameImageDims.top) / gameImageDims.height}
                 />
-            </div>
-        </main>
-    )
+                <div className='game=image-container'>
+                    <GameImage
+                        ref={gameImageRef}
+                        className='game-image' 
+                        handleClick={handleClick}
+                    />
+                </div>
+            </main>
+        )
+    }
+
 }
 
 export default Game;

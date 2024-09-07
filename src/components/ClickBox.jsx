@@ -1,16 +1,18 @@
 import './ClickBox.css';
 
-export default function ClickBox({ xCoord, yCoord, active }) {
+export default function ClickBox({ xCoord, yCoord, gameHeight }) {
     
     const borderThickness = 2; //px
 
     const border = `${borderThickness}px solid black`;
-    const height = 50; //px
-    const width = 50; //px
+
+    const clickBoxScaling = 0.05;
+
+    const height = gameHeight * clickBoxScaling; //px
+    const width = gameHeight * clickBoxScaling; //px
     const top = yCoord - ((height + 2 * borderThickness) / 2); //offset by half of div height
     const left = xCoord - ((width + 2 * borderThickness)/ 2); //offset by half of div width
 
-    const opacity = active ? 1 : 0;
 
     return (
         <div className='click-box' style={
@@ -20,7 +22,6 @@ export default function ClickBox({ xCoord, yCoord, active }) {
                 left, 
                 height,
                 width,
-                opacity
             }
         }>
         </div>
