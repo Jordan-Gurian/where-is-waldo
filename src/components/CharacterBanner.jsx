@@ -4,7 +4,7 @@ import './CharacterBanner.css'
 import ClickBanner from './ClickBanner';
 import { v4 as uuidv4 } from 'uuid';
 
-export default function CharacterBanner({ gameId, xCoord, yCoord }) {
+export default function CharacterBanner({ gameId, xCoord, yCoord, gameCompleteHook }) {
     // This function will need to fetch images and put them in a box
     // use gameId in api call
 
@@ -57,6 +57,9 @@ export default function CharacterBanner({ gameId, xCoord, yCoord }) {
         }
     }, [hiddenCharacterFound])
 
+    if (hiddenCharacters.length === 0) {
+        gameCompleteHook(true);
+    }
 
     if (hiddenCharacterFound === null || isNaN(xCoord) || isNaN(yCoord)) {
         return (
