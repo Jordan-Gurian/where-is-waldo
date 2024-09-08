@@ -1,5 +1,19 @@
 .click-box {
     position: absolute;
     border-radius: 50%; 
-    transition: opacity 0.25s ease;
+    animation-name: fade;
+    animation-duration: 3s;
+    animation-iteration-count: 1;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }

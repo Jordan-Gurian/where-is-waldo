@@ -52,14 +52,6 @@ function Game() {
     if (clickBoxCoords.length > 1) {
         return (
             <main className='container'>
-                <div>ClickB Left: {clickBoxCoords[0]} ClickB Top: {clickBoxCoords[1]}</div>
-                <div>
-                    GameI Left: {gameImageDims.left}, 
-                    GameI Top: {gameImageDims.top}, 
-                    GameI Width: {gameImageDims.width}, 
-                    GameI Height: {gameImageDims.height} 
-    
-                </div>
                 <CharacterBanner 
                     gameId={gameId}
                     xCoord={(clickBoxCoords[0] - gameImageDims.left) / gameImageDims.width}
@@ -82,14 +74,6 @@ function Game() {
     } else { // no click box
         return (
             <main className='container'>
-                <div>ClickB Left: {clickBoxCoords[0]} ClickB Top: {clickBoxCoords[1]}</div>
-                <div>
-                    GameI Left: {gameImageDims.left}, 
-                    GameI Top: {gameImageDims.top}, 
-                    GameI Width: {gameImageDims.width}, 
-                    GameI Height: {gameImageDims.height} 
-    
-                </div>
                 <CharacterBanner 
                     gameId={gameId}
                     xCoord={(clickBoxCoords[0] - gameImageDims.left) / gameImageDims.width}
