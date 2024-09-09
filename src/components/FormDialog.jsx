@@ -12,17 +12,21 @@ export default function FormDialog() {
   const [open, setOpen] = React.useState(true);
   const navigate = useNavigate();
 
-  const handleClose = () => {
+  function handleSubmit() {
     setOpen(false);
     navigate("./../../leaderboard")
     
+  };
+
+  function handleExit() {
+    setOpen(false);
+    navigate("./../../")
   };
 
   return (
     <React.Fragment>
       <Dialog
         open={open}
-        onClose={handleClose}
         PaperProps={{
           component: 'form',
           onSubmit: (event) => {
@@ -31,7 +35,7 @@ export default function FormDialog() {
             const formJson = Object.fromEntries(formData.entries());
             const name = formJson.name;
             console.log(name);
-            handleClose();
+            handleSubmit();
           },
         }}
       >
@@ -53,7 +57,7 @@ export default function FormDialog() {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Back to home page</Button>
+          <Button onClick={handleExit}>Back to home page</Button>
           <Button type="submit">Submit</Button>
         </DialogActions>
       </Dialog>
