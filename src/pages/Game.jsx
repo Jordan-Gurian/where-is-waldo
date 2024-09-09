@@ -4,16 +4,19 @@ import GameImage from './../components/GameImage'
 import './Game.css'
 import ClickBox from './../components/ClickBox';
 import CharacterBanner from './../components/CharacterBanner';
-import FormDialog from './../components/FormDialog'
+import FormDialog from './../components/FormDialog';
+import ClickBanner from '../components/ClickBanner';
 
 function Game() {
     
     const { gameId } = useParams()
     const [clickBoxCoords, setClickBoxCoords] = useState([]);
-    const [gameImageDims, setGameImageDims] = useState({left: 0, top: 0, width: 0, height: 0})
-    const [gameComplete, setGameComplete] = useState(false);
+    const [gameImageDims, setGameImageDims] = useState({left: 0, top: 0, width: 0, height: 0});
+    const [hiddenCharacterFound, setHiddenCharacterFound] = useState(null); // passed to CharacterBanner
+    const [gameComplete, setGameComplete] = useState(false); // passed to CharacterBanner
 
 
+    //#region Game Image sizing
     const gameImageRef = useRef(null);
 
     function getGameImageDims() {
@@ -32,6 +35,8 @@ function Game() {
       getGameImageDims();
     };
   
+    // X and Y coords are converted into percentages of the game image size, so the
+    // game image dimensions need to be adjusted when the window is resized.
     useEffect(() => {
       window.addEventListener('resize', handleResize);
       return () => {
@@ -39,18 +44,23 @@ function Game() {
         getGameImageDims();
       }
     }, []);
+    //#endregion Game Image sizing
 
+    //#region Click box logic
     function handleClick(e) {
         setClickBoxCoords([e.pageX, e.pageY]);
     }
 
+    // Remove click box and click banner after 2 seconds
     useEffect(() => {
         if (clickBoxCoords.length > 1) {
             setTimeout(() => {
                 setClickBoxCoords([])
+                setHiddenCharacterFound(null);
             }, 2000);
         }
     }, [clickBoxCoords])
+    //#endregion Click box logic
 
     if (gameComplete) {
         return (
@@ -60,6 +70,7 @@ function Game() {
                     xCoord={(clickBoxCoords[0] - gameImageDims.left) / gameImageDims.width}
                     yCoord={(clickBoxCoords[1]  - gameImageDims.top) / gameImageDims.height}
                     gameCompleteHook={setGameComplete}
+                    charFoundHook={setHiddenCharacterFound}
                 />
                 <FormDialog />
                 <div className='game=image-container'>
@@ -69,6 +80,7 @@ function Game() {
                         handleClick={handleClick}
                     />
                 </div>
+                <ClickBanner found={hiddenCharacterFound} />
             </main>
         )
     }
@@ -81,6 +93,7 @@ function Game() {
                     xCoord={(clickBoxCoords[0] - gameImageDims.left) / gameImageDims.width}
                     yCoord={(clickBoxCoords[1]  - gameImageDims.top) / gameImageDims.height}
                     gameCompleteHook={setGameComplete}
+                    charFoundHook={setHiddenCharacterFound}
                 />
                 <div className='game=image-container'>
                     <GameImage
@@ -94,6 +107,7 @@ function Game() {
                         gameHeight={gameImageDims.height}
                     />
                 </div>
+                <ClickBanner found={hiddenCharacterFound} />
             </main>
         )
     } else { // no click box
@@ -103,6 +117,8 @@ function Game() {
                     gameId={gameId}
                     xCoord={(clickBoxCoords[0] - gameImageDims.left) / gameImageDims.width}
                     yCoord={(clickBoxCoords[1]  - gameImageDims.top) / gameImageDims.height}
+                    gameCompleteHook={setGameComplete}
+                    charFoundHook={setHiddenCharacterFound}
                 />
                 <div className='game=image-container'>
                     <GameImage

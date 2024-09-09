@@ -1,8 +1,9 @@
 .char-found,
 .char-missed {
     position: fixed;
+    left: 50%;
+    bottom: 0%;
     font-size: 2rem;
-    top: 50%;
     border: 2px solid black;
     animation-name: move;
     animation-duration: 3s;
@@ -12,10 +13,10 @@
 
 @keyframes move {
   0% {
-    transform: translateX(0);
+    transform: translateX(-50%);
   }
   50% {
-    transform: translateX(0);
+    transform: translateX(-50%);
     opacity: 1;
   }
   100% {
