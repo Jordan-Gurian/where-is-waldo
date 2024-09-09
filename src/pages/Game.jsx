@@ -10,7 +10,7 @@ function Game() {
     
     const { gameId } = useParams()
     const [clickBoxCoords, setClickBoxCoords] = useState([]);
-    const [gameImageDims, setGameImageDims] = useState({left: 0, top: 0})
+    const [gameImageDims, setGameImageDims] = useState({left: 0, top: 0, width: 0, height: 0})
     const [gameComplete, setGameComplete] = useState(false);
 
 
