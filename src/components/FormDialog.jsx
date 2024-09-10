@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -10,12 +10,12 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 export default function FormDialog() {
   const [open, setOpen] = React.useState(true);
+  const { gameId } = useParams();
   const navigate = useNavigate();
 
   function handleSubmit() {
     setOpen(false);
-    navigate("./../../leaderboard")
-    
+    navigate(`./../../leaderboard/${gameId}`);
   };
 
   function handleExit() {
