@@ -18,7 +18,7 @@ export default function Leaderboard() {
 
     return (
         <main className='leaderboard-container'>
-            <div className='image-tile-container'>
+            <div className='all-image-tiles'>
                 <ImageTile id={1} onClickHook={goTo} />
                 <ImageTile id={2} onClickHook={goTo} />
                 <ImageTile id={3} onClickHook={goTo} />

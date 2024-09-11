@@ -9,3 +9,13 @@
     transition: 0.25s ease;
 
 }
+
+.image-tile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.image-tile-label {
+    font-size: 2rem;
+}
