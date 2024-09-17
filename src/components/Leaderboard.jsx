@@ -1,38 +1,50 @@
 import './Leaderboard.css'
+import { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-export default function Leaderboard({ leaderboardId }) {
-    // perform API GET for data
-    let leaderboardData;
+export default function Leaderboard({ gameId }) {
 
-    if (!leaderboardId) {
-        leaderboardId = '1';
+    const [game, setGame] = useState({});
+    const [leaderboard, setLeaderboard] = useState([]);
+    const apiURL = import.meta.env.VITE_API_URL;
+    const gameURL = `${apiURL}/games/${gameId}`;
+    const leaderboardURL = `${apiURL}/leaderboards/${gameId}`;
+
+    const options = {
+        method: "GET",
     }
 
-    if (leaderboardId === '1') {
-        leaderboardData = [{name: 'Lisa', time: '00:14'},
-            {name: 'Marge', time: '00:45'},
-            {name: 'Maggie', time: '00:46'},
-            {name: 'Bart', time: '08:21'},
-            {name: 'Homer', time: '37:56'}
-         ];
-    } else if (leaderboardId === '2') {
-        leaderboardData = [{name: 'Lisa', time: '00:14'},
-            {name: 'Maggie', time: '00:46'},
-            {name: 'Bart', time: '08:21'},
-         ];
-    } else {
-        leaderboardData = [{name: 'Lisa', time: '00:14'},
-            {name: 'Marge', time: '00:45'},
-            {name: 'Maggie', time: '00:46'},
-         ];
+    async function loadGame() {
+        try {
+            const response = await fetch(gameURL, options);
+            const responseDetails = await response.json();
+            setGame(responseDetails);
+        } catch(e) {
+            console.log(`Error loading image: ${e}`);
+            return null
+        }
     }
 
+    async function loadLeaderboard() {
+        try {
+            const response = await fetch(leaderboardURL, options);
+            const responseDetails = await response.json();
+            setLeaderboard(responseDetails);
+        } catch(e) {
+            console.log(`Error loading image: ${e}`);
+            return null
+        }
+    }
+
+    useEffect(() => {
+        loadGame();
+        loadLeaderboard();
+    }, []);   
 
     return (
         <table>
             <caption>
-                Leaderboard Level {leaderboardId}
+                {game.name}
             </caption>
             <thead>
                 <tr>
@@ -42,7 +54,7 @@ export default function Leaderboard({ leaderboardId }) {
                 </tr>
             </thead>
             <tbody>
-                {leaderboardData.map((player, rank) => {
+                {leaderboard.map((player, rank) => {
                     return (
                     <tr key={uuidv4()}>
                         <th scope="row">{rank + 1}</th>
