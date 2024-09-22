@@ -41,14 +41,14 @@ export default function Leaderboard() {
     useEffect(() => {
         loadGames();
     }, []);    
-
+    
     useEffect(() => {
         if (!gameId && allGames.length > 0) {
             setCurrentGameId(allGames[0].id);
         } else {
             setCurrentGameId(gameId);
         }
-    }, [gameId !== currentGameId, allGames])
+    }, [gameId, allGames])
  
     if (!currentGameId) {
         return (

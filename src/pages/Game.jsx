@@ -6,6 +6,7 @@ import ClickBox from './../components/ClickBox';
 import CharacterBanner from './../components/CharacterBanner';
 import FormDialog from './../components/FormDialog';
 import ClickBanner from '../components/ClickBanner';
+import { v4 as uuidv4 } from 'uuid';
 
 function Game() {
     
@@ -14,7 +15,32 @@ function Game() {
     const [gameImageDims, setGameImageDims] = useState({left: 0, top: 0, width: 0, height: 0});
     const [hiddenCharacterFound, setHiddenCharacterFound] = useState(null); // passed to CharacterBanner
     const [gameComplete, setGameComplete] = useState(false); // passed to CharacterBanner
+    
+    //#region Fetch game image
+    const [game, setGame] = useState({});
+    const apiURL = import.meta.env.VITE_API_URL;
 
+    const options = {
+        method: "GET",
+    }
+
+    const url = `${apiURL}/games/${gameId}`
+
+    async function loadGame() {
+        try {
+            const response = await fetch(url, options);
+            const responseDetails = await response.json();
+            setGame(responseDetails);
+        } catch(e) {
+            console.log(`Error loading game image: ${e}`);
+            return null
+        }
+    }
+
+    useEffect(() => {
+        loadGame();
+    }, []);
+    //#endregion Fetch game image
 
     //#region Game Image sizing
     const gameImageRef = useRef(null);
@@ -75,8 +101,10 @@ function Game() {
                 <FormDialog />
                 <div className='game=image-container'>
                     <GameImage
+                        key={uuidv4()}
                         ref={gameImageRef}
                         className='game-image' 
+                        imgURL={game.imgURL}
                         handleClick={handleClick}
                     />
                 </div>
@@ -97,8 +125,10 @@ function Game() {
                 />
                 <div className='game=image-container'>
                     <GameImage
+                        key={uuidv4()}
                         ref={gameImageRef}
-                        className='game-image' 
+                        className='game-image'
+                        imgURL={game.imgURL}
                         handleClick={handleClick}
                     />
                     <ClickBox 
@@ -122,8 +152,10 @@ function Game() {
                 />
                 <div className='game=image-container'>
                     <GameImage
+                        key={uuidv4()}
                         ref={gameImageRef}
-                        className='game-image' 
+                        className='game-image'
+                        imgURL={game.imgURL}
                         handleClick={handleClick}
                     />
                 </div>
