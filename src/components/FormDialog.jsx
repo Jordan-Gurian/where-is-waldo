@@ -13,9 +13,37 @@ export default function FormDialog() {
   const { gameId } = useParams();
   const navigate = useNavigate();
 
-  function handleSubmit() {
+  async function handleSubmit(name) {
     setOpen(false);
-    navigate(`./../../leaderboard/${gameId}`);
+
+    const apiURL = import.meta.env.VITE_API_URL;
+    const url = `${apiURL}/leaderboards`;
+
+    const body = {
+      name: name,
+      time: 64,
+      gameId: gameId,
+    };
+
+    const bodyString = JSON.stringify(body);
+
+    const headers = {
+        "Content-Type": "application/json"
+    };
+
+    const options = {
+        body: bodyString,
+        method: "POST",
+        headers: headers,
+    };
+
+    try {
+      const response = await fetch(url, options);
+      console.log(response);
+      navigate(`./../../leaderboard/${gameId}`);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   function handleExit() {
@@ -35,7 +63,7 @@ export default function FormDialog() {
             const formJson = Object.fromEntries(formData.entries());
             const name = formJson.name;
             console.log(name);
-            handleSubmit();
+            handleSubmit(name);
           },
         }}
       >
