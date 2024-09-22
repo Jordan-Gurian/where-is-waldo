@@ -8,20 +8,51 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-export default function FormDialog() {
+export default function FormDialog({ startTime }) {
   const [open, setOpen] = React.useState(true);
+  const [duration, setDuration] = React.useState(0);
   const { gameId } = useParams();
   const navigate = useNavigate();
+  const apiURL = import.meta.env.VITE_API_URL;
+
+
+  //#region timer logic
+  async function getDuration() {
+    const timerUrl = `${apiURL}/timer/stop`;
+
+    const timerBody = {
+    start: startTime,
+    };
+
+    const timerBodyString = JSON.stringify(timerBody);
+
+    const timerHeaders = {
+        "Content-Type": "application/json"
+    };
+
+    const timerOptions = {
+        body: timerBodyString,
+        method: "POST",
+        headers: timerHeaders,
+    };
+    const timerResponse = await fetch(timerUrl, timerOptions);
+    const dur = await timerResponse.json();
+    setDuration(dur);
+  }
+  //#endregion timer logic
+
+  React.useEffect(() => {
+    getDuration();
+  }, [])
 
   async function handleSubmit(name) {
     setOpen(false);
 
-    const apiURL = import.meta.env.VITE_API_URL;
     const url = `${apiURL}/leaderboards`;
 
     const body = {
       name: name,
-      time: 64,
+      time: duration,
       gameId: gameId,
     };
 

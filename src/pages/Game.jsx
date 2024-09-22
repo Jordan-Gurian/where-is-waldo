@@ -15,10 +15,13 @@ function Game() {
     const [gameImageDims, setGameImageDims] = useState({left: 0, top: 0, width: 0, height: 0});
     const [hiddenCharacterFound, setHiddenCharacterFound] = useState(null); // passed to CharacterBanner
     const [gameComplete, setGameComplete] = useState(false); // passed to CharacterBanner
-    
+    const apiURL = import.meta.env.VITE_API_URL;
+
+    //#region Get start time
+    const [startTime, setStartTime] = useState(Date.now());
+
     //#region Fetch game image
     const [game, setGame] = useState({});
-    const apiURL = import.meta.env.VITE_API_URL;
 
     const options = {
         method: "GET",
@@ -98,7 +101,7 @@ function Game() {
                     gameCompleteHook={setGameComplete}
                     charFoundHook={setHiddenCharacterFound}
                 />
-                <FormDialog />
+                <FormDialog startTime={startTime}/>
                 <div className='game=image-container'>
                     <GameImage
                         key={uuidv4()}

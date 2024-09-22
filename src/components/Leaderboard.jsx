@@ -31,7 +31,7 @@ export default function Leaderboard({ gameId }) {
             const responseDetails = await response.json();
             setLeaderboard(responseDetails);
         } catch(e) {
-            console.log(`Error loading image: ${e}`);
+            console.log(`Error loading leaderboard: ${e}`);
             return null
         }
     }
