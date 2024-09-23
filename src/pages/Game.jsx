@@ -6,6 +6,7 @@ import ClickBox from './../components/ClickBox';
 import CharacterBanner from './../components/CharacterBanner';
 import FormDialog from './../components/FormDialog';
 import ClickBanner from '../components/ClickBanner';
+import Timer from '../components/Timer';
 import { v4 as uuidv4 } from 'uuid';
 
 function Game() {
@@ -16,9 +17,43 @@ function Game() {
     const [hiddenCharacterFound, setHiddenCharacterFound] = useState(null); // passed to CharacterBanner
     const [gameComplete, setGameComplete] = useState(false); // passed to CharacterBanner
     const apiURL = import.meta.env.VITE_API_URL;
-
-    //#region Get start time
     const [startTime, setStartTime] = useState(Date.now());
+    const [currentTime, setCurrentTime] = useState("00:00");
+    const [finalTime, setFinalTime] = useState(null);
+
+
+    //#region timer logic
+    async function getDuration() {
+        const timerUrl = `${apiURL}/timer/stop`;
+
+        const timerBody = {
+        start: startTime,
+        };
+
+        const timerBodyString = JSON.stringify(timerBody);
+
+        const timerHeaders = {
+            "Content-Type": "application/json"
+        };
+
+        const timerOptions = {
+            body: timerBodyString,
+            method: "POST",
+            headers: timerHeaders,
+        };
+        const timerResponse = await fetch(timerUrl, timerOptions);
+        const duration = await timerResponse.json();
+        setCurrentTime(duration);
+    }
+
+    useEffect(() => { 
+        const intervalId = setInterval(() => {
+            getDuration();
+        }, 1000);
+
+        return () => clearInterval(intervalId);
+    }, [])
+    //#endregion timer logic
 
     //#region Fetch game image
     const [game, setGame] = useState({});
@@ -92,6 +127,11 @@ function Game() {
     //#endregion Click box logic
 
     if (gameComplete) {
+        
+        if (!finalTime) {
+            setFinalTime(currentTime);
+        }
+        
         return (
             <main className='container'>
                 <CharacterBanner
@@ -101,7 +141,7 @@ function Game() {
                     gameCompleteHook={setGameComplete}
                     charFoundHook={setHiddenCharacterFound}
                 />
-                <FormDialog startTime={startTime}/>
+                <FormDialog time={finalTime}/>
                 <div className='game=image-container'>
                     <GameImage
                         key={uuidv4()}
@@ -119,6 +159,9 @@ function Game() {
     if (clickBoxCoords.length > 1) {
         return (
             <main className='container'>
+                <Timer 
+                    time={currentTime}
+                />
                 <CharacterBanner
                     gameId={gameId}
                     xCoord={(clickBoxCoords[0] - gameImageDims.left) / gameImageDims.width}
@@ -146,6 +189,9 @@ function Game() {
     } else { // no click box
         return (
             <main className='container'>
+                <Timer 
+                    time={currentTime}
+                />
                 <CharacterBanner 
                     gameId={gameId}
                     xCoord={(clickBoxCoords[0] - gameImageDims.left) / gameImageDims.width}
