@@ -94,24 +94,14 @@ function Game() {
             });
         }
     }
-    
-    const handleResize = () => {
-      getGameImageDims();
-    };
-  
-    // X and Y coords are converted into percentages of the game image size, so the
-    // game image dimensions need to be adjusted when the window is resized.
-    useEffect(() => {
-      window.addEventListener('resize', handleResize);
-      return () => {
-        window.removeEventListener('resize', handleResize);
-        getGameImageDims();
-      }
-    }, []);
     //#endregion Game Image sizing
 
     //#region Click box logic
+
+    // X and Y coords are converted into percentages of the game image size, so 
+    // the dimensions are reset on click.
     function handleClick(e) {
+        getGameImageDims(); 
         setClickBoxCoords([e.pageX, e.pageY]);
     }
 
@@ -136,8 +126,8 @@ function Game() {
             <main className='container'>
                 <CharacterBanner
                     gameId={gameId}
-                    xCoord={(clickBoxCoords[0] - gameImageDims.left) / gameImageDims.width}
-                    yCoord={(clickBoxCoords[1]  - gameImageDims.top) / gameImageDims.height}
+                    xCoord={(clickBoxCoords[0] - gameImageDims.left + window.scrollX) / gameImageDims.width}
+                    yCoord={(clickBoxCoords[1] - gameImageDims.top - window.scrollY) / gameImageDims.height}
                     gameCompleteHook={setGameComplete}
                     charFoundHook={setHiddenCharacterFound}
                 />
@@ -164,8 +154,8 @@ function Game() {
                 />
                 <CharacterBanner
                     gameId={gameId}
-                    xCoord={(clickBoxCoords[0] - gameImageDims.left) / gameImageDims.width}
-                    yCoord={(clickBoxCoords[1]  - gameImageDims.top) / gameImageDims.height}
+                    xCoord={(clickBoxCoords[0] - gameImageDims.left + window.scrollX) / gameImageDims.width}
+                    yCoord={(clickBoxCoords[1]  - gameImageDims.top - window.scrollY) / gameImageDims.height}
                     gameCompleteHook={setGameComplete}
                     charFoundHook={setHiddenCharacterFound}
                 />
@@ -194,8 +184,8 @@ function Game() {
                 />
                 <CharacterBanner 
                     gameId={gameId}
-                    xCoord={(clickBoxCoords[0] - gameImageDims.left) / gameImageDims.width}
-                    yCoord={(clickBoxCoords[1]  - gameImageDims.top) / gameImageDims.height}
+                    xCoord={(clickBoxCoords[0] - gameImageDims.left + window.scrollX) / gameImageDims.width}
+                    yCoord={(clickBoxCoords[1]  - gameImageDims.top - window.scrollY) / gameImageDims.height}
                     gameCompleteHook={setGameComplete}
                     charFoundHook={setHiddenCharacterFound}
                 />
