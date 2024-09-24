@@ -3,14 +3,12 @@ import Character from './Character';
 import './CharacterBanner.css'
 import { v4 as uuidv4 } from 'uuid';
 
-export default function CharacterBanner({ gameId, xCoord, yCoord, gameCompleteHook, charFoundHook }) {
-    // This function will need to fetch images and put them in a box
-    // use gameId in api call
+export default function CharacterBanner({ characters, xCoord, yCoord, gameCompleteHook, charFoundHook }) {
 
-    const characters = [{name: 'Fox', imgURL: 'https://play.nintendo.com/images/Masthead_Fox.17345b1513ac044897cfc243542899dce541e8dc.9afde10b.png', x1: 0.686, x2: .716, y1: 0.434, y2: .468},
-    {name:'Link', imgURL:'https://ssb.wiki.gallery/images/thumb/9/91/Toon_Link.png/1200px-Toon_Link.png', x1: 0.638, x2: 0.660, y1: 0.690, y2: 0.710}]// this will be retrieved with api call
+    // const characters = [{name: 'Fox', imgURL: 'https://play.nintendo.com/images/Masthead_Fox.17345b1513ac044897cfc243542899dce541e8dc.9afde10b.png', x1: 0.686, x2: .716, y1: 0.434, y2: .468},
+    // {name:'Link', imgURL:'https://ssb.wiki.gallery/images/thumb/9/91/Toon_Link.png/1200px-Toon_Link.png', x1: 0.638, x2: 0.660, y1: 0.690, y2: 0.710}]// this will be retrieved with api call
 
-    const [hiddenCharacters, setHiddenCharacters] = useState(characters);
+    const [hiddenCharacters, setHiddenCharacters] = useState(['dummy']);
     const hiddenCharactersCount = useRef(hiddenCharacters.length);
 
     // Check if current click is within character hit box
@@ -52,8 +50,14 @@ export default function CharacterBanner({ gameId, xCoord, yCoord, gameCompleteHo
         }
     }, [hiddenCharacters])
 
+    useEffect(() => {
+        if (characters.length > 0) {
+            setHiddenCharacters(characters);
+        }
+    }, [characters])
+
     // Let Game know that the game is complete when there are no hidden characters
-    if (hiddenCharacters.length === 0) {
+    if (characters.length > 0 && hiddenCharacters.length === 0) {
         gameCompleteHook(true);
     }
 

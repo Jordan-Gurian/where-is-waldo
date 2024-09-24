@@ -8,7 +8,6 @@ export default function Leaderboard({ gameId }) {
     const [leaderboard, setLeaderboard] = useState([]);
     const apiURL = import.meta.env.VITE_API_URL;
     const gameURL = `${apiURL}/games/${gameId}`;
-    const leaderboardURL = `${apiURL}/leaderboards/${gameId}`;
 
     const options = {
         method: "GET",
@@ -19,26 +18,16 @@ export default function Leaderboard({ gameId }) {
             const response = await fetch(gameURL, options);
             const responseDetails = await response.json();
             setGame(responseDetails);
+            const leaderboardSorted = responseDetails.leaderboard.sort((a,b) => (a.time > b.time) ? 1 : ((b.time > a.time) ? -1 : 0))
+            setLeaderboard(leaderboardSorted.slice(0, 10));
         } catch(e) {
             console.log(`Error loading image: ${e}`);
             return null
         }
     }
 
-    async function loadLeaderboard() {
-        try {
-            const response = await fetch(leaderboardURL, options);
-            const responseDetails = await response.json();
-            setLeaderboard(responseDetails);
-        } catch(e) {
-            console.log(`Error loading leaderboard: ${e}`);
-            return null
-        }
-    }
-
     useEffect(() => {
         loadGame();
-        loadLeaderboard();
     }, []);   
 
     return (

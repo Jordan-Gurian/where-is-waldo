@@ -20,6 +20,7 @@ function Game() {
     const [startTime, setStartTime] = useState(Date.now());
     const [currentTime, setCurrentTime] = useState("00:00");
     const [finalTime, setFinalTime] = useState(null);
+    const [characters, setCharacters] = useState([]);
 
 
     //#region timer logic
@@ -69,6 +70,7 @@ function Game() {
             const response = await fetch(url, options);
             const responseDetails = await response.json();
             setGame(responseDetails);
+            setCharacters(responseDetails.characters);
         } catch(e) {
             console.log(`Error loading game image: ${e}`);
             return null
@@ -125,7 +127,7 @@ function Game() {
         return (
             <main className='container'>
                 <CharacterBanner
-                    gameId={gameId}
+                    characters={characters}
                     xCoord={(clickBoxCoords[0] - gameImageDims.left + window.scrollX) / gameImageDims.width}
                     yCoord={(clickBoxCoords[1] - gameImageDims.top - window.scrollY) / gameImageDims.height}
                     gameCompleteHook={setGameComplete}
@@ -153,7 +155,7 @@ function Game() {
                     time={currentTime}
                 />
                 <CharacterBanner
-                    gameId={gameId}
+                    characters={characters}
                     xCoord={(clickBoxCoords[0] - gameImageDims.left + window.scrollX) / gameImageDims.width}
                     yCoord={(clickBoxCoords[1]  - gameImageDims.top - window.scrollY) / gameImageDims.height}
                     gameCompleteHook={setGameComplete}
@@ -183,7 +185,7 @@ function Game() {
                     time={currentTime}
                 />
                 <CharacterBanner 
-                    gameId={gameId}
+                    characters={characters}
                     xCoord={(clickBoxCoords[0] - gameImageDims.left + window.scrollX) / gameImageDims.width}
                     yCoord={(clickBoxCoords[1]  - gameImageDims.top - window.scrollY) / gameImageDims.height}
                     gameCompleteHook={setGameComplete}
