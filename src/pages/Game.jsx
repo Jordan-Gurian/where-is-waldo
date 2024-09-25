@@ -161,7 +161,8 @@ function Game() {
                     gameCompleteHook={setGameComplete}
                     charFoundHook={setHiddenCharacterFound}
                 />
-                <div className='game=image-container'>
+                <div className='g
+ame=image-container'>
                     <GameImage
                         key={uuidv4()}
                         ref={gameImageRef}

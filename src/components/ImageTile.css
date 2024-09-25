@@ -1,21 +1,37 @@
 .image-tile {
-    border: 2px solid black;
     border-radius: 10%;
+    box-shadow: 0px 0px 0.2rem var(--header-bg-color);;
 }
 
-.image-tile:hover {
+.image-tile-container:hover {
     opacity: 0.5;
     border-radius: 15%;
     transition: 0.5s ease;
     cursor: pointer;
 }
 
+.image-tile-label {
+    font-size: 2rem;
+}
+
 .image-tile-container {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-evenly;
+    padding: 20px;
+    gap: 1rem;
 }
 
-.image-tile-label {
-    font-size: 2rem;
+.all-image-tiles {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 20px;
+    width: 75vw;
+}
+
+@media screen and (max-width: 1200px) {
+    .all-image-tiles {
+        flex-direction: column;    
+    }
 }

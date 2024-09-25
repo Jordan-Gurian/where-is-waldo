@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from  'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './Leaderboard.css'
 import ImageTile from './../components/ImageTile';
 import LeaderboardComponent from './../components/Leaderboard';
@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 export default function Leaderboard() {
     
+    const ref = useRef(null);
     const [allGames, setAllGames] = useState([]);
     const { gameId } = useParams();
     const [currentGameId, setCurrentGameId] = useState(gameId);
@@ -21,9 +22,9 @@ export default function Leaderboard() {
 
     function toLeaderboard(id) {
         if (!gameId) {
-            navigate(`./${id}`)
+            navigate(`./${id}`);
         } else {
-            navigate(`./../${id}`)
+            navigate(`./../${id}`);
         }
     }
 
@@ -72,7 +73,7 @@ export default function Leaderboard() {
                     )
                 })}
                 </div>
-                <LeaderboardComponent key={uuidv4()} gameId={currentGameId}/>
+                <LeaderboardComponent key={uuidv4()} ref={ref} gameId={currentGameId}/>
             </main>
         )
     }

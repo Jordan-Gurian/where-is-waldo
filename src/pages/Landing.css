@@ -1,5 +1,3 @@
-.all-image-tiles {
-    display: flex;
-    justify-content: space-evenly;
-    padding: 20px;
+#landing-tiles {
+    align-self: center;
 }

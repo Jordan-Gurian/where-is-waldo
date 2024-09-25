@@ -12,8 +12,10 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --header-bg-color: red;
-  --header-font-color: black;
+  --main-bg-color: #011627;
+  --main-font-color: #F6F2FF;
+  --header-bg-color: #F6F2FF;
+  --header-font-color: #011627;
   --header-font-size: 2rem;
   --header-height: 4rem;
 
@@ -22,12 +24,16 @@
 }
 
 html,body{
+  background-color: var(--main-bg-color);
+  color: var(--main-font-color);
+  overflow: auto;
   height:100%;
   width:100%;
-  margin:0
+  margin:0;
 }
 
 #root {
+
   height:100%;
   width:100%;
 
@@ -37,7 +43,7 @@ html,body{
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: var(--main-bg-color);
   text-decoration: inherit;
 }
 a:hover {

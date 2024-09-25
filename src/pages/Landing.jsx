@@ -37,7 +37,7 @@ function Landing() {
     }, []);
 
     return (
-        <main className='all-image-tiles'>
+        <main className='all-image-tiles' id='landing-tiles'>
             {allGames.map((game) => {
                 return (
                 <ImageTile key={uuidv4()} gameId={game.id} name={game.name} imgURL={game.imgURL} onClickHook={toGame} />

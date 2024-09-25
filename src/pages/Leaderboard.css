@@ -4,10 +4,3 @@
     align-items: center;
 }
 
-.image-tile-container {
-    display: flex;
-    justify-content: space-evenly;
-    padding: 20px;
-    gap: 20px;
-}
-

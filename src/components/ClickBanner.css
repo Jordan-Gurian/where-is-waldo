@@ -2,9 +2,12 @@
 .char-missed {
     position: fixed;
     left: 50%;
-    bottom: 0%;
+    bottom: 1%;
     font-size: 2rem;
-    border: 2px solid black;
+    font-weight: bold;
+    padding: 5px 20px;
+    border-radius: 10px;
+    color: var(--header-bg-color);
     animation-name: move;
     animation-duration: 3s;
     animation-iteration-count: 1;
@@ -26,10 +29,9 @@
 }
 
 .char-found {
-    background-color: green;
-    color: white;
+    background-color: #3EA368;
 }
 
 .char-missed {
-    background-color: red;
+    background-color: #99240A;
 }

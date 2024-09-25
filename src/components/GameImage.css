@@ -1,5 +1,9 @@
 .game-image {
-	border: 2px solid black;
     margin: auto;
     display: block;
+}
+
+.game {
+    border-radius: 5%;
+    box-shadow: 0px 0px 0.2rem var(--header-bg-color);;
 }

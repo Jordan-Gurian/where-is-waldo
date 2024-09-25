@@ -1,13 +1,13 @@
 import './Leaderboard.css'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, forwardRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-export default function Leaderboard({ gameId }) {
+export default forwardRef(function Leaderboard(props, ref) {
 
     const [game, setGame] = useState({});
     const [leaderboard, setLeaderboard] = useState([]);
     const apiURL = import.meta.env.VITE_API_URL;
-    const gameURL = `${apiURL}/games/${gameId}`;
+    const gameURL = `${apiURL}/games/${props.gameId}`;
 
     const options = {
         method: "GET",
@@ -20,6 +20,7 @@ export default function Leaderboard({ gameId }) {
             setGame(responseDetails);
             const leaderboardSorted = responseDetails.leaderboard.sort((a,b) => (a.time > b.time) ? 1 : ((b.time > a.time) ? -1 : 0))
             setLeaderboard(leaderboardSorted.slice(0, 10));
+            ref.current.scrollIntoView({behavior: 'smooth', block: 'end'});
         } catch(e) {
             console.log(`Error loading image: ${e}`);
             return null
@@ -31,7 +32,7 @@ export default function Leaderboard({ gameId }) {
     }, []);   
 
     return (
-        <table>
+        <table ref={ref}>
             <caption>
                 {game.name}
             </caption>
@@ -55,4 +56,4 @@ export default function Leaderboard({ gameId }) {
             </tbody>
         </table>
     )
-}
+})
