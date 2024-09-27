@@ -5,7 +5,8 @@ Live Site
 where-is-waldo-zeta.vercel.app
 
 Server Repository
-where-is-waldo-backend
+[where-is-waldo-backend
+](https://github.com/Jordan-Gurian/where-is-waldo-backend)
 
 Technologies Used
 - React
