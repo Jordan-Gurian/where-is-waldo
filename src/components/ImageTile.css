@@ -1,6 +1,8 @@
 .image-tile {
     border-radius: 10%;
-    box-shadow: 0px 0px 0.2rem var(--header-bg-color);;
+    box-shadow: 0px 0px 0.2rem var(--header-bg-color);
+    height: 25vw;
+    width: 25vw;
 }
 
 .image-tile-container:hover {
@@ -25,13 +27,18 @@
 
 .all-image-tiles {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     padding: 20px;
-    width: 75vw;
+    gap: 1rem;
 }
 
 @media screen and (max-width: 1200px) {
     .all-image-tiles {
         flex-direction: column;    
+    }
+
+    .image-tile {
+        height: 33vh;
+        width: 33vh;
     }
 }

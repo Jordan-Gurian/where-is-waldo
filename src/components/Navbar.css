@@ -12,9 +12,16 @@ header {
     display: flex;
     padding: var(--nav-padding);
     justify-content: space-between;
+    gap: var(--nav-link-gap);
   }
   
   .nav-links {
     display: flex;
     gap: var(--nav-link-gap);
+  }
+
+  @media screen and (max-width: 600px) {
+    header {
+      font-size: 1rem;
+    }
   }

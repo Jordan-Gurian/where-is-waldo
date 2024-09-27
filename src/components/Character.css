@@ -5,6 +5,22 @@
     font-size: 2rem;
 }
 
+.char-image {
+    height: 5rem;
+    width: 5rem;
+}
+
 .found {
     opacity: 0.2
+}
+
+@media screen and (max-width: 600px) {
+    .character {
+        font-size: 1rem;   
+    }
+
+    .char-image {
+        height: 15vw;
+        width: 15vw;
+    }
 }

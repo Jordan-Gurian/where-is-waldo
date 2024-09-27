@@ -113,7 +113,7 @@ function Game() {
             setTimeout(() => {
                 setClickBoxCoords([])
                 setHiddenCharacterFound(null);
-            }, 2000);
+            }, 1000);
         }
     }, [clickBoxCoords])
     //#endregion Click box logic

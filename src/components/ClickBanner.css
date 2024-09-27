@@ -35,3 +35,10 @@
 .char-missed {
     background-color: #99240A;
 }
+
+@media screen and (max-width: 600px) {
+  .char-found,
+  .char-missed {
+      font-size: 1rem;    
+  }
+}
