@@ -1,8 +1,8 @@
 # where-is-waldo
 This is the front-end of the "Where is Waldo" game, built with React, Javascript, and Vite. The game allows users to find hidden characters in an image and submit their scores to a leaderboard.
 
-Live Site:
-[where-is-waldo-zeta.vercel.app](where-is-waldo-zeta.vercel.app)
+Live Site (note: Since I am using a free database for this site, it can be slow to load up if it has not been accessed recently. It may take a few minutes/a couple refreshes):
+where-is-waldo-zeta.vercel.app
 
 Server Repository:
 [where-is-waldo-backend
